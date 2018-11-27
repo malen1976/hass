@@ -1,0 +1,14 @@
+vacation_mode:
+  name: Vacation mode
+  initial: off
+  icon: mdi:beach
+
+away_mode:
+  name: Away mode
+  initial: off
+  icon: mdi:account-off
+
+cinema_mode:
+  name: Cinema mode
+  initial: off
+  icon: mdi:movie

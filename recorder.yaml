@@ -1,0 +1,27 @@
+purge_interval: 2
+purge_keep_days: 5
+exclude:
+  domains:
+    - automation
+    - weblink
+    - updater
+  entities:
+    - sun.sun
+    - sensor.date
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_exporting
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_exporting_2
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_energy
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_energy_2
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_alarm_type_2
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_alarm_type
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_alarm_level
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_alarm_level_2
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_sourcenodeid_2
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_sourcenodeid
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_power_management_2
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_power_management
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_power_2
+    - sensor.yr_temperature
+    - sensor.yr_wind_speed
+    - media_player.living_room
+    - sensor.ram_used

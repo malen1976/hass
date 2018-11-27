@@ -1,0 +1,193 @@
+# Groups
+living_room:
+  name: Livingroom
+  entities:
+    - light.livingroom
+
+tv_room:
+  name: TV Room
+  entities:
+    - switch.fibaro_system_fgwpef_wall_plug_gen5_switch_2
+
+kitchen:
+  name: Kitchen
+  entities:
+    - light.kitchen
+
+outdoor_back:
+  name: Porch lightning
+  entities:
+    - light.outdoor_back_1
+    - light.outdoor_back_2
+    - light.outdoor_back_3
+    - light.outdoor_back_4
+    - light.outdoor_backdoor1
+    - light.outdoor_backdoor2
+
+outdoor_front:
+  name: Front lightning
+  entities:
+    - light.outdoor_frontdoor
+
+bedroom_middle:
+  name: Middle bedroom
+  entities:
+    - switch.fibaro_system_fgwpef_wall_plug_gen5_switch
+
+#christmas:
+#  name: Christmas
+#  entities:
+#    - light.christmas_dining_1
+#    - light.christmas_dining_2
+#    - light.christmas_small_livingroom
+
+sysmon_raspberry:
+  name: System Monitor Raspberry
+  entities:
+    - sensor.disk_use_percent_
+    - sensor.memory_use_percent
+    - sensor.swap_use
+    - sensor.ipv4_address_eth0
+    - sensor.last_boot
+
+battery_status:
+  name: Battery Status
+  entities:
+    - sensor.remote_inside
+    - sensor.remote_outside
+    - sensor.dimmer_switch_battery_level
+
+temperature_garage_fridge:
+  name: Garage fridge
+  entities:
+    - sensor.temp_frys_garage
+    - sensor.temp_frys_garage_2
+    - sensor.temp_frys_garage_battery_level
+    - sensor.temp_frys_garage_battery_level_2
+
+temperature_kitchen_fridge:
+  name: Kitchen fridge
+  entities:
+    - sensor.temp_frys_garage
+    - sensor.temp_frys_garage_2
+    - sensor.temp_frys_garage_battery_level
+    - sensor.temp_frys_garage_battery_level_2
+
+road_weather:
+  name: Trafikverket Weather
+  entities:
+    - sensor.trafikverket_weatherstation_air_temperature
+    - sensor.trafikverket_weatherstation_road_temperature
+    - sensor.trafikverket_weatherstation_precipitation_type
+    - sensor.trafikverket_weatherstation_wind_direction_text
+    - sensor.trafikverket_weatherstation_wind_speed
+
+#family:
+#  name: Family members
+#  entities:
+#    - device_tracker.fredrik
+#    - device_tracker.karin 
+
+vacation:    
+  name: Vacation
+  entities:
+    - input_boolean.vacation_mode
+
+cinema:
+  name: Cinema
+  entities:
+    - input_boolean.cinema_mode
+
+away:
+  name: Away
+  entities:
+    - input_boolean.away_mode
+
+sensor_hide_from_ui:
+  name: sensor_spam
+  entities:
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_alarm_level
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_alarm_level_2
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_alarm_type
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_alarm_type_2
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_energy
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_energy_2
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_exporting
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_exporting_2
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_power
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_power_2
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_power_3
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_power_4
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_power_management
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_power_management_2
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_sourcenodeid
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_sourcenodeid_2
+    - sensor.daylight
+
+#####################################
+# Views
+####################################
+
+indoor_lightning_view:
+  view: yes
+  name: Indoor Lightning
+  entities:
+    - group.living_room
+    - group.kitchen
+    - group.tv_room
+
+outdoor_lightning_view:
+  view: yes
+  name: Outdoor Lightning
+  entities:
+    - group.outdoor_back
+    - group.outdoor_front
+
+bedrooms:
+  view: yes
+  name: Bedrooms
+  entities:
+    - group.bedroom_middle
+
+#christmas_view:
+#  view: yes
+#  name: Christmas Lightning
+#  entities:
+#    - group.christmas
+
+temperature_view:
+  view: yes
+  name: Temperature sensors
+  entities:
+    - group.temperature_garage_fridge
+    - group.temperature_kitchen_fridge
+
+system_view:
+  view: yes
+  name: Status Raspberry
+  entities:
+    - group.sysmon_raspberry
+
+weather_view:
+  view: yes
+  name: Weather
+  entities:
+    - group.road_weather
+
+battery_status_view:
+  view: yes
+  name: Battery Status
+  entities:
+    - group.battery_status
+
+vacation_view:
+  view: yes
+  name: Vacation
+  entities:
+    - group.vacation
+
+cinema_view:
+  view: yes
+  name: Cinema Mode
+  entities:
+    - group.cinema

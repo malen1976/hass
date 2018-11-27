@@ -1,0 +1,15 @@
+*
+!*.yaml
+!scenes
+!.gitignore
+*.conf
+*.txt
+*.log
+*.xml
+*.save
+.storage
+.cloud
+.google.token
+ip_bans.yaml
+secrets.yaml
+known_devices.yaml

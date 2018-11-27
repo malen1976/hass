@@ -1,0 +1,184 @@
+#################################################################
+## Lighting Automations
+#################################################################
+
+        ##########################################################
+        ## Turn off Outdoor Lights at Sunrise
+        ##########################################################
+
+- alias: Lights - Turn off Lights at Sunrise
+
+  trigger:
+    - platform: sun
+      event: sunrise
+
+  action:
+    - service: light.turn_off
+      entity_id: group.christmas, group.outdoor_back, group.outdoor_front
+
+        ##########################################################
+        ## Turn On Outdoor lights at Sunset
+        ##########################################################
+
+- alias: Lights - Turn on Outdoor lights at Sunset
+
+  trigger:
+    - platform: sun
+      event: sunset
+  condition:
+    condition: or
+    conditions:
+      - condition: sun
+        after: sunset
+      - condition: sun
+        before: sunrise
+  action:
+    - service: light.turn_on
+      entity_id: group.outdoor_back, group.outdoor_front
+       
+        #########################################################
+        ## Turn on indoor lights at evening before sunset
+        #########################################################
+
+- alias: Turn on indoor lights at evening
+  trigger:
+    platform: numeric_state
+    entity_id: sun.sun
+    value_template: '{{ state.attributes.elevation }}'
+    below: 5
+  action:
+    - service: light.turn_on
+      entity_id: group.living_room, group.kitchen
+    - service: switch.turn_on
+      entity_id: group.bedroom_middle, group.tv_room
+
+        ##########################################################
+        ## Turn off indoor lights at midnight
+        ##########################################################
+
+- alias: Lights - Turn off indoor lights at midnight
+ 
+  trigger:
+    - platform: time
+      at: '23:59:50'
+  action:
+    - service: light.turn_off
+      entity_id: group.kitchen, group.living_room
+    - service: switch.turn_off
+      entity_id: group.bedroom_middle, group.tv_room
+
+#############################################
+## Enable/disable Away mode
+#############################################
+
+- alias: 'Family is home'
+  trigger:
+    - platform: state
+      entity_id: group.all_devices
+      to: 'home'
+  action:
+#    - service: notify.pushbullet
+#      data_template:
+#          message: 'Family is away'
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.away_mode
+
+- alias: 'Nobody is home'
+  trigger:
+    - platform: state
+      entity_id: group.all_devices
+      to: 'not_home'
+  action:
+#    - service: notify.pushbullet
+#      data_template:
+#          message: 'Family is home'
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.away_mode
+
+#####################################
+## Notify when new version is availible
+####################################
+- alias: Update Available 
+  trigger:
+    - platform: state
+      entity_id: sensor.hass_latest
+#  condition:
+#    - condition: template
+#      value_template: '{{ states.hass_latest.state != states.hass_installed.state }}'
+  action:
+    - service: notify.pushbullet
+      data_template: 
+          title: 'New Home Assistant Release'
+          message: "Home Assistant {{ states.sensor.hass_latest.state }} is now available"
+
+#####################################
+## Turn off light when mediaplayer
+####################################
+- alias: Lights off after sunset if Kodi is playing
+  trigger:
+    - platform: state
+      entity_id: media_player.samsung_7_series_65_ue65mu7005
+      to: 'playing'
+  condition:
+    - condition: and
+      conditions:
+      - condition: sun
+        after: sunset
+      - condition: time
+        before: '23:59:00'
+  action:
+    - service: light.turn_off
+      entity_id: group.living_room
+    - service: switch.turn_off
+      entity_id: group.tv_room
+    
+- alias: Lights on after sunset if Kodi is paused
+  trigger:
+    - platform: state
+      entity_id: media_player.samsung_7_series_65_ue65mu7005
+      to: 'idle'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 20
+  condition:
+    - condition: and
+      conditions:
+      - condition: sun
+        after: sunset
+      - condition: time
+        before: '23:59:30'
+  action:
+    - service: light.turn_on
+      entity_id: group.living_room
+    - service: switch.turn_on
+      entity_id: group.tv_room
+
+##########################################
+# Testing sun elevation
+##########################################
+#- alias: Notify sun.sun elevation below 0
+#  trigger:
+#    platform: numeric_state
+#    entity_id: sun.sun
+#    value_template: '{{ state.attributes.elevation }}'
+#    below: 3
+#  action:
+#    - service: notify.pushbullet
+#      data_template:
+#          title: 'Sunset below 0'
+#          message: "sun.sun reports below 0"
+#
+#- alias: Notify sun.sun elevation above 0
+#  trigger:
+#    platform: numeric_state
+#    entity_id: sun.sun
+#    value_template: '{{ state.attributes.elevation }}'
+#    above: 0
+#  action:
+#    - service: notify.pushbullet
+#      data_template:
+#          title: 'Sunrise above 0'
+#          message: "sun.sun reports above 0"

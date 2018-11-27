@@ -1,0 +1,9 @@
+  burglar:
+    alias: Test SMTP notification
+    sequence:
+      - delay:
+            seconds: 1
+      - service: notify.NOTIFIER_NAME
+        data:
+            title: 'Test email titile'
+            message: 'Testing message in a mail using gmail...'
